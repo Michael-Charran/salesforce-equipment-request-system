@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title="Equipment Request Dashboard">
+
+        <div class="slds-p-around_medium">
+
+            <!-- FORM -->
+            <lightning-combobox
+            label="Equipment Type"
+            value={equipmentType}
+            options={equipmentOptions}
+            onchange={handleType}>
+            </lightning-combobox>
+
+            <lightning-input 
+                label="Estimated Cost" 
+                type="number"
+                onchange={handleCost}>
+            </lightning-input>
+
+            <lightning-textarea 
+                label="Justification"
+                onchange={handleJustification}>
+            </lightning-textarea>
+
+            <lightning-button 
+                label="Submit Request"
+                variant="brand"
+                onclick={handleSubmit}>
+            </lightning-button>
+
+            <hr/>
+
+            <!-- COUNTS -->
+            <p><b>Approved:</b> {approvedCount}</p>
+            <p><b>Pending:</b> {pendingCount}</p>
+
+            <hr/>
+
+            <!-- LIST -->
+            <lightning-datatable
+            key-field="Id"
+            data={requests}
+            columns={columns}
+            hide-checkbox-column
+            onrowaction = {handleRowAction}>
+</lightning-datatable>
+        </div>
+
+    <c-equipment-request-modal
+    record-id={selectedRecordId}
+    is-open={showModal}
+    onsuccess={handleModalSuccess}
+    onclose={closeModal}>
+</c-equipment-request-modal>    
+    </lightning-card>
+</template>
