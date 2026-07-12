@@ -1,58 +1,239 @@
-# Salesforce DX Project
+# Salesforce Equipment Request Management System
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+A full-stack Salesforce application for managing employee equipment requests using Lightning Web Components (LWC), Apex, Salesforce Flows, REST APIs, and OAuth 2.0 authentication.
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+This project demonstrates end-to-end Salesforce development including custom objects, Apex controllers, Lightning Web Components, Flow automation, REST API development, OAuth authentication, Apex testing, and Salesforce DX deployment.
 
-## Prerequisites
+---
 
-Before you start, make sure you have:
+## Features
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+- Create Equipment Requests from a Lightning Web Component
+- View all submitted requests in a Lightning Datatable
+- Edit requests using a custom modal
+- Delete requests with confirmation dialog
+- Automatic approval workflow using Record-Triggered Flows
+- Dynamic Equipment Type picklist
+- Live dashboard showing:
+  - Approved Requests
+  - Pending Requests
+- Secure REST API
+  - GET Equipment Requests
+  - POST Equipment Requests
+- OAuth 2.0 Authentication
+- Postman API Testing
+- Apex Unit Tests
 
-## Project Structure
+---
 
-Your DX project follows this structure:
+## Technologies Used
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+### Salesforce
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
+- Lightning Web Components (LWC)
+- Apex
+- SOQL
+- Record Triggered Flows
+- Custom Objects
+- Permission Sets
+- Salesforce DX
 
-## Get Started
+### API & Integration
 
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
+- Apex REST Services
+- OAuth 2.0
+- External Client Apps
+- Postman
 
-## Common Salesforce CLI Commands
+### Development Tools
 
-Here are common CLI commands that you'll use the most:
+- Visual Studio Code
+- Salesforce CLI
+- Git
+- GitHub
 
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
+---
 
-## Use Agentforce Vibes to Build Lightning Apps
+# Application Screenshots
 
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
+## Equipment Request Dashboard
 
-## Additional Resources
+![Dashboard](images/dashboard.png)
 
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
+---
 
+## Create Equipment Request
+
+![Create Request](images/create-request.png)
+
+---
+
+## View Equipment Request
+
+![View Request](images/view-request-modal.png)
+
+---
+
+## Edit Equipment Request
+
+![Edit Request](images/edit-request-modal.png)
+
+---
+
+## Delete Equipment Request
+
+![Delete Request](images/delete-request-modal.png)
+
+---
+
+# REST API
+
+## GET Equipment Requests
+
+Returns all equipment requests as JSON.
+
+**Endpoint**
+
+```
+GET /services/apexrest/equipmentrequests/
+```
+
+Example Response
+
+```json
+[
+  {
+    "Name": "REQ-0013",
+    "Equipment_Type__c": "Laptop",
+    "Estimated_Cost__c": 1500,
+    "Status__c": "Draft"
+  }
+]
+```
+
+### Postman
+
+![GET](images/postman-get-request.png)
+
+---
+
+## POST Equipment Request
+
+Creates a new equipment request.
+
+**Endpoint**
+
+```
+POST /services/apexrest/equipmentrequests/
+```
+
+Example Request
+
+```json
+{
+  "equipmentType": "Laptop",
+  "estimatedCost": 1500,
+  "justification": "Created through Postman"
+}
+```
+
+Example Response
+
+```json
+{
+  "Id": "...",
+  "Name": "REQ-0013",
+  "Equipment_Type__c": "Laptop",
+  "Estimated_Cost__c": 1500,
+  "Status__c": "Draft"
+}
+```
+
+### Postman
+
+![POST](images/postman-post-request.png)
+
+---
+
+# Project Architecture
+
+```
+User
+        │
+        ▼
+Lightning Web Component (Dashboard)
+        │
+        ▼
+Apex Controller
+        │
+        ▼
+SOQL
+        │
+        ▼
+Equipment_Request__c
+
+                 ▲
+                 │
+OAuth 2.0
+                 │
+                 ▼
+Postman
+                 │
+                 ▼
+Apex REST Service
+                 │
+                 ▼
+Salesforce Database
+```
+
+---
+
+# Business Process
+
+1. User submits an Equipment Request.
+2. Apex creates the record.
+3. Record Triggered Flow evaluates the request.
+4. Requests under the approval threshold are automatically approved.
+5. Dashboard updates Approved and Pending counts.
+6. Users can edit or delete requests.
+7. External systems can retrieve or create requests through the REST API.
+
+---
+
+# Testing
+
+Apex Unit Tests were created for:
+
+- GET REST endpoint
+- POST REST endpoint
+- Record creation
+- REST response validation
+
+REST Service Coverage:
+
+**88%**
+
+---
+
+# Future Improvements
+
+- PUT endpoint for updating requests
+- DELETE REST endpoint
+- Pagination
+- Search and filtering
+- User authentication and role-based security
+- Email notifications
+- File attachments
+- Approval history
+
+---
+
+# Author
+
+**Michael Charran**
+
+Bachelor of Science in Computer Science
+
+AWS Certified Cloud Practitioner
+
+Salesforce Developer Portfolio Project
