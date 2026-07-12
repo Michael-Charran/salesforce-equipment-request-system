@@ -236,4 +236,6 @@ Bachelor of Science in Computer Science
 
 AWS Certified Cloud Practitioner
 
+Salesforce Certfied Foundations
+
 Salesforce Developer Portfolio Project
